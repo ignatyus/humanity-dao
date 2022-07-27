@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,16 +8,15 @@ dataSources:
     source:
       address: "0xDd806c4fDAd2949a97Fda79036cfbb8750181b37"
       abi: HumanityGovernance
+      startBlock: 7723872
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Execute
-        - Propose
-        - RemoveVote
-        - Terminate
-        - Vote
+        - Proposal
+        - User
+        - EntityVote
       abis:
         - name: HumanityGovernance
           file: ./abis/HumanityGovernance.json
@@ -32,4 +31,4 @@ dataSources:
           handler: handleTerminate
         - event: Vote(indexed uint256,indexed address,bool,uint256)
           handler: handleVote
-      file: ./src/humanity-governance.ts
+      file: ./src/mapping.ts

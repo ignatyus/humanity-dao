@@ -1,5 +1,37 @@
-type ExampleEntity @entity {
+enum Result {
+  Yes
+  No
+  Pending
+}
+
+enum Option {
+  Yes
+  No
+}
+
+
+type Proposal @entity {
   id: ID!
-  count: BigInt!
-  proposalId: BigInt! # uint256
+  result: Result!
+  proposer: User!
+  votes: [EntityVote!]! @derivedFrom(field: "proposal")
+  startTimestamp: BigInt!
+  yesCount: BigInt!
+  noCount: BigInt!
+  isFinalized: Boolean!
+}
+
+type User @entity {
+  id: ID!
+  votes: [EntityVote!]! @derivedFrom(field: "voter")
+  proposals: [Proposal!]! @derivedFrom(field: "proposer")
+}
+
+type EntityVote @entity {
+  id: ID!
+  voter: User!
+  proposal: Proposal!
+  option: Option!
+  weight: BigInt!
+  removed: Boolean!
 }
