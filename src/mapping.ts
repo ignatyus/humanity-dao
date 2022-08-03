@@ -2,6 +2,7 @@ import { BigInt } from "@graphprotocol/graph-ts"
 
 import {
     Execute,
+    HumanityGovernance,
     Propose,
     RemoveVote,
     Terminate,
@@ -15,12 +16,14 @@ import {
 } from "../generated/schema"
 
 export function handlePropose(event: Propose): void {
-    let proposal = Proposal.load (event.params.proposalId.toString())
+    let proposalID = event.params.proposalId
+    let proposal = Proposal.load (proposalID.toString())
+    let proposer = event.params.proposer
     proposal.result = "Pending"
-    proposal.proposer = event.params.proposer.toString()
+    proposal.proposer = proposer.toString()
     proposal.startTimestamp = event.block.timestamp
-    // proposal.yesCount = event
-    proposal.noCount = BigInt.fromI32(0)
+    proposal.yesCount = HumanityGovernance.bind (event.address).yesVotes(proposalID, proposer)
+    proposal.noCount = BigInt.fromI32 (0)
     proposal.isFinalized = false
 
     proposal.save()
