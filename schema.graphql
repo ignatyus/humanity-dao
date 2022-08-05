@@ -31,6 +31,7 @@ type EntityVote @entity {
   id: ID!
   voter: User!
   proposal: Proposal!
+  timestamp: BigInt!
   option: Option!
   weight: BigInt!
   removed: Boolean!
