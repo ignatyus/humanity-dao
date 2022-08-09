@@ -28,7 +28,7 @@ export function handlePropose(event: Propose): void {
         proposal.result = "Pending"
         proposal.proposer = proposerID
         proposal.startTimestamp = event.block.timestamp
-        proposal.yesCount = HumanityGovernance.bind (event.address).yesVotes(proposalID, proposer)
+        proposal.yesCount = HumanityGovernance.bind (event.address).proposalFee()
         proposal.noCount = BigInt.fromI32 (0)
         proposal.isFinalized = false
         proposal.save()
@@ -42,10 +42,6 @@ export function handlePropose(event: Propose): void {
     else {
         log.warning ("This proposal already exists. ID {}", [proposalID.toString()])
     }
-    
-    
-
-    proposal.save()
 }
 
 export function handleVote(event: Vote): void {
@@ -78,10 +74,10 @@ export function handleVote(event: Vote): void {
         vote.save()
 
         if (vote.option == "Yes") {
-            proposal.yesCount = proposal.yesCount.plus(vote.weight )
+            proposal.yesCount = proposal.yesCount.plus (vote.weight)
         }
         else if (vote.option == "No") {
-            proposal.noCount = proposal.noCount.plus(vote.weight )
+            proposal.noCount = proposal.noCount.plus (vote.weight)
         }
 
         proposal.save()
@@ -104,7 +100,7 @@ export function handleRemoveVote(event: RemoveVote): void {
         log.warning ("This proposal does not exist. ID {}", [proposalID])
     }
     else {
-        for (let count = 0; count < proposal.votes.length, count++;) {
+        for (let count = 0; count < proposal.votes.length; count++) {
             let voteID = proposalID.concat ("-").concat (voterID).concat ("-").concat (count.toString())
             let vote = EntityVote.load(voteID)
 
