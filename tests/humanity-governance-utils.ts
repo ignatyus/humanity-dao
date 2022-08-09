@@ -9,7 +9,17 @@ import {
 } from "../generated/HumanityGovernance/HumanityGovernance"
 
 export function createExecuteEvent(proposalId: BigInt): Execute {
-  let executeEvent = changetype<Execute>(newMockEvent())
+  let mockEvent = newMockEvent()
+  let executeEvent = new Execute(
+    mockEvent.address,
+    mockEvent.logIndex,
+    mockEvent.transactionLogIndex,
+    mockEvent.logType,
+    mockEvent.block,
+    mockEvent.transaction,
+    mockEvent.parameters,
+    mockEvent.receipt
+  )
 
   executeEvent.parameters = new Array()
 
@@ -29,7 +39,17 @@ export function createProposeEvent(
   target: Address,
   data: Bytes
 ): Propose {
-  let proposeEvent = changetype<Propose>(newMockEvent())
+  let mockEvent = newMockEvent()
+  let proposeEvent = new Propose(
+    mockEvent.address,
+    mockEvent.logIndex,
+    mockEvent.transactionLogIndex,
+    mockEvent.logType,
+    mockEvent.block,
+    mockEvent.transaction,
+    mockEvent.parameters,
+    mockEvent.receipt
+  )
 
   proposeEvent.parameters = new Array()
 
@@ -56,7 +76,17 @@ export function createRemoveVoteEvent(
   proposalId: BigInt,
   voter: Address
 ): RemoveVote {
-  let removeVoteEvent = changetype<RemoveVote>(newMockEvent())
+  let mockEvent = newMockEvent()
+  let removeVoteEvent = new RemoveVote(
+    mockEvent.address,
+    mockEvent.logIndex,
+    mockEvent.transactionLogIndex,
+    mockEvent.logType,
+    mockEvent.block,
+    mockEvent.transaction,
+    mockEvent.parameters,
+    mockEvent.receipt
+  )
 
   removeVoteEvent.parameters = new Array()
 
@@ -74,7 +104,17 @@ export function createRemoveVoteEvent(
 }
 
 export function createTerminateEvent(proposalId: BigInt): Terminate {
-  let terminateEvent = changetype<Terminate>(newMockEvent())
+  let mockEvent = newMockEvent()
+  let terminateEvent = new Terminate(
+    mockEvent.address,
+    mockEvent.logIndex,
+    mockEvent.transactionLogIndex,
+    mockEvent.logType,
+    mockEvent.block,
+    mockEvent.transaction,
+    mockEvent.parameters,
+    mockEvent.receipt
+  )
 
   terminateEvent.parameters = new Array()
 
@@ -94,7 +134,17 @@ export function createVoteEvent(
   approve: boolean,
   weight: BigInt
 ): Vote {
-  let voteEvent = changetype<Vote>(newMockEvent())
+  let mockEvent = newMockEvent()
+  let voteEvent = new Vote(
+    mockEvent.address,
+    mockEvent.logIndex,
+    mockEvent.transactionLogIndex,
+    mockEvent.logType,
+    mockEvent.block,
+    mockEvent.transaction,
+    mockEvent.parameters,
+    mockEvent.receipt
+  )
 
   voteEvent.parameters = new Array()
 
